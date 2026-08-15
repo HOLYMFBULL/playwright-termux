@@ -1,0 +1,32 @@
+[build-system]
+requires = [
+    "setuptools>=68",
+    "wheel",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "playwright-termux"
+version = "1.62.0"
+description = "Playwright 1.62.0 adapted for Termux/Android"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "Apache-2.0" }
+
+dependencies = [
+    "greenlet>=3.1.1",
+    "pyee>=13",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = [
+    "playwright*",
+]
+
+[tool.setuptools.package-data]
+playwright = [
+    "driver/**",
+]

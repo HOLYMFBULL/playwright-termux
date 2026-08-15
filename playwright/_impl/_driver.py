@@ -30,6 +30,15 @@ def compute_driver_executable() -> Tuple[str, str]:
             os.getenv("PLAYWRIGHT_NODEJS_PATH", str(driver_path / "node.exe")),
             cli_path,
         )
+    if sys.platform == "android":
+        return (
+            os.getenv(
+                "PLAYWRIGHT_NODEJS_PATH",
+                "/data/data/com.termux/files/usr/bin/node",
+            ),
+            cli_path,
+        )
+
     return (os.getenv("PLAYWRIGHT_NODEJS_PATH", str(driver_path / "node")), cli_path)
 
 

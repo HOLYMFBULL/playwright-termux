@@ -1,0 +1,29 @@
+# Playwright Termux
+
+Playwright 1.62.0 adapted for running with Termux on Android.
+
+This distribution uses the Node.js and Chromium executables provided by
+Termux instead of the bundled Playwright Node.js/browser binaries.
+
+## Termux paths
+
+The Termux build uses:
+
+- Node.js: `/data/data/com.termux/files/usr/bin/node`
+- Chromium: `/data/data/com.termux/files/usr/bin/chromium-browser`
+
+## Requirements
+
+- Android
+- Termux
+- Python 3.9+
+- Node.js installed in Termux
+- Chromium installed in Termux
+
+## Installation
+
+Install the required Termux packages first:
+
+```bash
+pkg install python nodejs chromium
+

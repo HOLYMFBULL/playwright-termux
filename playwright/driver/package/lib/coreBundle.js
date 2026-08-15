@@ -8170,6 +8170,11 @@ function calculatePlatform() {
     }
     return { hostPlatform: macPlatform, isOfficiallySupportedPlatform: macVersion >= 14 };
   }
+  if (platform === "android") {
+    if (import_os3.default.arch() === "arm64")
+      return { hostPlatform: "debian13-arm64", isOfficiallySupportedPlatform: false };
+    return { hostPlatform: "<unknown>", isOfficiallySupportedPlatform: false };
+  }
   if (platform === "linux") {
     if (!["x64", "arm64"].includes(import_os3.default.arch()))
       return { hostPlatform: "<unknown>", isOfficiallySupportedPlatform: false };
@@ -32842,6 +32847,14 @@ var init_registry = __esm({
       constructor(browsersJSON) {
         const descriptors = readDescriptors(browsersJSON);
         const findExecutablePath = (dir, name) => {
+          if (
+            process.platform === "android" &&
+            (name === "chromium" || name === "chromium-headless-shell")
+          ) {
+            const termuxChromium = "/data/data/com.termux/files/usr/bin/chromium-browser";
+            if (import_fs19.default.existsSync(termuxChromium))
+              return termuxChromium;
+          }
           const tokens = EXECUTABLE_PATHS[name][shortPlatform];
           return tokens ? import_path20.default.join(dir, ...tokens) : void 0;
         };
