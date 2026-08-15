@@ -4,7 +4,6 @@ setup(
     name="playwright",
     version="1.62.0",
     description="Playwright Python package for Termux/Android",
-
     python_requires=">=3.10",
 
     packages=find_packages(),
@@ -12,9 +11,7 @@ setup(
     package_data={
         "playwright": [
             "py.typed",
-            "driver/LICENSE",
-            "driver/README.md",
-            "driver/package/**",
+            "driver/**/*",
         ],
     },
 
