@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "playwright-termux"
+version = "2.0.0"
+description = "Android/Termux-compatible browser automation using Chromium CDP"
+readme = "README.md"
+requires-python = ">=3.10"
+
+authors = [
+    { name = "BRUTE" }
+]
+
+license = { text = "MIT" }
+
+keywords = [
+    "playwright",
+    "termux",
+    "android",
+    "chromium",
+    "browser-automation",
+    "cdp"
+]
+
+dependencies = [
+    "websocket-client>=1.9.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/HOLYMFBULL/playwright-termux"
+Repository = "https://github.com/HOLYMFBULL/playwright-termux"
+Documentation = "https://github.com/HOLYMFBULL/playwright-termux/tree/main/docs"
+Issues = "https://github.com/HOLYMFBULL/playwright-termux/issues"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
