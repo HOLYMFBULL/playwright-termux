@@ -1,6 +1,23 @@
 # Playwright-Termux
 
+[![PyPI version](https://badge.fury.io/py/playwright-termux.svg)](https://badge.fury.io/py/playwright-termux)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 `playwright-termux` is a specialized Python library designed to bring Playwright-like browser automation to Android environments via Termux. It allows you to control a Chromium browser using the Chrome DevTools Protocol (CDP), bypassing the limitations typically found when trying to run standard Playwright directly on Android/Termux.
+
+---
+
+## Table of Contents
+1. [What is it?](#what-is-it)
+2. [How to Integrate and Automate Web Workflows](#how-to-integrate-and-automate-web-workflows)
+   - [Prerequisites](#prerequisites)
+   - [Basic Usage (Headless)](#basic-usage-headless)
+   - [Advanced Usage (Headed with Termux:X11)](#advanced-usage-headed-with-termuxx11)
+3. [Workflows and CI/CD Structure](#workflows-and-cicd-structure)
+   - [Publishing to PyPI](#publishing-to-pypi)
+4. [Documentation and Examples](#documentation-and-examples)
+
+---
 
 ## What is it?
 
@@ -15,9 +32,10 @@ Standard Playwright relies on pre-compiled browser binaries (Node.js/C++) that a
 
 ### Prerequisites
 
-You need Python, Chromium, and (optionally) an X11 setup if you want to see the browser.
+You need Python, Chromium, and (optionally) an X11 setup if you want to see the browser. Run the following inside your Termux terminal:
 
 ```bash
+pkg update
 pkg install python chromium-browser
 pip install playwright-termux
 ```
@@ -39,9 +57,9 @@ with Chromium(headless=True) as browser:
 
 To run automated workflows where you can visually see the browser working, you can use Termux:X11.
 
-1. Install and start `termux-x11`.
+1. Install and start `termux-x11` (from the F-Droid repository or GitHub Releases).
 2. Export your display variable: `export DISPLAY=:0`
-3. Run the script:
+3. Run your script:
 
 ```python
 from playwright_termux import Chromium
@@ -65,16 +83,16 @@ We strongly believe in clear, maintainable workflows, both for using this tool a
 
 ### Publishing to PyPI
 
-We maintain an automated CI/CD workflow to ensure `playwright-termux` is easily installable for end users. Our GitHub Actions workflow (`.github/workflows/publish.yml`) ensures that every time a new release is published on GitHub, the package is built and pushed to PyPI.
+We maintain an automated CI/CD workflow to ensure `playwright-termux` is easily installable for end users. Our GitHub Actions workflow (`.github/workflows/publish.yml`) ensures that every time a new release is published on GitHub, the package is built and pushed to PyPI automatically.
 
 How it works:
-1. **Trigger:** The workflow listens for the `release: published` event.
-2. **Build:** It checks out the code, sets up Python, and uses standard `build` tools to create source distributions and wheels.
-3. **Publish:** It uses `pypa/gh-action-pypi-publish` with Trusted Publishing (OIDC) to securely push the new version to PyPI.
+1. **Trigger:** The workflow listens for the `release: published` event on GitHub.
+2. **Build:** It checks out the code, sets up Python, and uses standard Python `build` tools to create source distributions (`.tar.gz`) and wheels (`.whl`).
+3. **Publish:** It uses `pypa/gh-action-pypi-publish` with Trusted Publishing (OIDC) to securely push the new version to the Python Package Index (PyPI).
 
 This automation allows contributors to focus on improving the library while the build system ensures clean, reproducible, and secure releases.
 
 ## Documentation and Examples
 
-- **Docs:** Read more in our `docs/` folder for guides on API usage, locators, context management, and more.
-- **Examples:** Check the `examples/` folder for ready-to-run automation scripts for common workflows (forms, cookies, screenshots).
+- **Docs:** Read more in our [GitHub `docs/` folder](https://github.com/HOLYMFBULL/playwright-termux/tree/main/docs) for guides on API usage, locators, context management, and more.
+- **Examples:** Check the [GitHub `examples/` folder](https://github.com/HOLYMFBULL/playwright-termux/tree/main/examples) for ready-to-run automation scripts for common workflows (forms, cookies, screenshots).
