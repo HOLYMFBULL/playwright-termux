@@ -7,11 +7,12 @@ on:
   release:
     types: [published]
 
-# These permissions are required for PyPI Trusted Publishing (OIDC).
+# These permissions are required for PyPI Trusted Publishing (OIDC) and Attestations.
 # It allows GitHub Actions to securely authenticate with PyPI without needing long-lived passwords or API tokens.
 permissions:
   contents: read
   id-token: write
+  attestations: write
 
 jobs:
   publish:
@@ -40,3 +41,7 @@ jobs:
       # It relies on the OIDC permissions defined above.
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          # Optional: you can disable attestations entirely if needed,
+          # but the added permission should fix the failure.
+          attestations: true
