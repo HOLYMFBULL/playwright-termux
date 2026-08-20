@@ -1,9 +1,14 @@
 name: Publish to PyPI
 
+# This workflow automatically builds and publishes the `playwright-termux`
+# package to the Python Package Index (PyPI) whenever a new GitHub Release is created.
+# This ensures that end-users always have access to the latest stable version via `pip`.
 on:
   release:
     types: [published]
 
+# These permissions are required for PyPI Trusted Publishing (OIDC).
+# It allows GitHub Actions to securely authenticate with PyPI without needing long-lived passwords or API tokens.
 permissions:
   contents: read
   id-token: write
@@ -22,11 +27,16 @@ jobs:
         with:
           python-version: "3.x"
 
+      # Install the modern Python build frontend.
       - name: Install build tools
         run: python -m pip install --upgrade build
 
+      # Compiles the package into a Source Distribution (.tar.gz)
+      # and a Built Distribution (.whl) based on pyproject.toml.
       - name: Build package
         run: python -m build
 
+      # Uses the official PyPA GitHub Action to upload the built artifacts to PyPI.
+      # It relies on the OIDC permissions defined above.
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
